@@ -80,3 +80,38 @@ python3 search_wide_range.py
 ```
 
 The script will search both above and below the calculated value, reporting progress regularly.
+
+## Optimized 28-Thread Scanner
+
+The `puzzle67_scanner.py` script is optimized for CPU scanning using 28 threads:
+
+### Features:
+- Uses coincurve for faster key generation
+- Optimized address generation with custom functions
+- Real-time progress monitoring
+- Automatic result saving
+- Memory-efficient key handling
+
+### Optimizations:
+1. Uses coincurve instead of python-ecdsa for faster key operations
+2. Custom Bitcoin address generation without full library overhead
+3. Batch processing with progress reporting
+4. Efficient memory management
+5. Parallel search in both directions from base value
+
+### Usage:
+```bash
+# Install requirements
+pip3 install coincurve base58
+
+# Run scanner
+python3 puzzle67_scanner.py
+```
+
+### Performance Tips:
+1. Adjust RANGE_PER_THREAD based on your CPU speed
+2. Monitor CPU usage and adjust thread count if needed
+3. Run on a machine with good single-thread performance
+4. Keep system cool for sustained performance
+5. Consider using PyPy for potential speed improvements
+
