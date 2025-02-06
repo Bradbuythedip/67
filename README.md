@@ -261,3 +261,25 @@ python3 progressive_search.py
 
 The search uses patterns verified against higher puzzle progression.
 
+
+## ECDSA Pattern Search
+
+Based on Genesis Block ECDSA patterns:
+1. Uses k*s ≡ e + rx (mod N) relationship
+2. Checks for similar modulo patterns
+3. Verifies high byte patterns
+4. Implements ECDSA constraints
+
+Key features:
+- ECDSA pattern pre-filtering
+- Modulo relationship checking
+- High byte pattern verification
+- Genesis block pattern matching
+
+### Usage:
+```bash
+python3 ecdsa_pattern_search.py
+```
+
+The search uses ECDSA patterns from Genesis Block analysis.
+
