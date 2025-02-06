@@ -240,3 +240,24 @@ python3 exact_match_search.py
 
 The script will stop immediately when finding the exact target address.
 
+
+## Progressive Power Search
+
+Analysis of higher puzzles (120-160) revealed crucial patterns:
+1. Values follow exact power-of-2 progression
+2. Public keys show cyclic patterns every 5 puzzles
+3. Direct relationship between puzzle numbers and progression
+
+New `progressive_search.py` implements these insights:
+- Uses power progression pattern
+- Focuses on compressed addresses
+- Verifies against known progression
+- Shows detailed pattern matches
+
+### Usage:
+```bash
+python3 progressive_search.py
+```
+
+The search uses patterns verified against higher puzzle progression.
+
