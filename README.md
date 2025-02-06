@@ -115,3 +115,63 @@ python3 puzzle67_scanner.py
 4. Keep system cool for sustained performance
 5. Consider using PyPy for potential speed improvements
 
+
+## Pattern Analysis Tools
+
+### New Analysis Scripts:
+1. `pattern_analysis.py` - Deep analysis of mathematical patterns
+2. `bit_pattern_analysis.py` - Analysis of bit-level patterns
+3. `bit_transition.py` - Study of bit transitions between puzzles
+4. `relaxed_pattern_search.py` - Refined search with relaxed criteria
+
+### Key Pattern Insights:
+1. Phi-based growth with consistent scaling factor
+2. Modulo patterns for puzzles where n%3 == 1
+3. Bit preservation patterns between consecutive puzzles
+4. Transition patterns in bit flips (0->1 and 1->0)
+
+### Search Criteria:
+- Base Value (Puzzle 58): 0x4a7711aa5
+- Target Preserved Bits: ~50
+- Modulo Range: 0x15-0x28
+- Expected Ratio: ~76.1034
+- Binary Length: 41 bits
+
+### Usage:
+```bash
+# Run pattern analysis
+python3 pattern_analysis.py
+
+# Run bit pattern analysis
+python3 bit_pattern_analysis.py
+
+# Run bit transition analysis
+python3 bit_transition.py
+
+# Run refined search
+python3 relaxed_pattern_search.py
+```
+
+
+## Continuous Search Tool
+
+The `continuous_search.py` script implements a persistent search that:
+1. Continuously expands search range until target is found
+2. Reports detailed statistics and progress
+3. Shows pattern matches along the way
+4. Saves solution when found
+
+### Features:
+- Real-time progress monitoring
+- Performance statistics (keys/second)
+- Pattern match analysis
+- Automatic result saving
+- Expanding range search
+
+### Usage:
+```bash
+python3 continuous_search.py
+```
+
+The script will continue searching in expanding ranges until the target address is found, showing progress and pattern matches along the way.
+
