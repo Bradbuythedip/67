@@ -217,3 +217,26 @@ python3 cyclic_pattern_search.py
 
 The search uses cyclic patterns verified against puzzle 70's known solution.
 
+
+## Exact Match Search
+
+The `exact_match_search.py` script implements a precise search that:
+1. Only checks compressed addresses
+2. Immediately stops on exact match with 1BY8GQbnueYofwSuFAT3USAhGjPrkxDdW9
+3. Shows real-time progress with latest addresses
+4. Saves solution with detailed verification
+
+Key Features:
+- Fast constraint checking before address generation
+- Clear progress display with latest addresses
+- Immediate stop on exact match
+- Robust error handling
+- Detailed solution verification
+
+### Usage:
+```bash
+python3 exact_match_search.py
+```
+
+The script will stop immediately when finding the exact target address.
+
