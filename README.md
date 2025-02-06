@@ -63,3 +63,20 @@ Our current calculated value for puzzle 67: 0x16230cfcfa9
 pip3 install bitcoin base58 coincurve
 ```
 
+
+## Wide Range Search
+
+The `search_wide_range.py` script performs a parallel search around the calculated value:
+
+- Searches ±1 trillion values by default
+- Uses 8 parallel processes
+- Reports progress in real-time
+- Checks both compressed and uncompressed addresses
+- Can be interrupted safely with Ctrl+C
+
+To run the wide range search:
+```bash
+python3 search_wide_range.py
+```
+
+The script will search both above and below the calculated value, reporting progress regularly.
