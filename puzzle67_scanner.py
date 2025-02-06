@@ -6,6 +6,7 @@ import queue
 import time
 from coincurve import PrivateKey
 import os
+import sys
 from multiprocessing import cpu_count
 
 # Constants
@@ -94,6 +95,15 @@ def search_range(start_value, range_size, thread_id):
         
         current_value += 1
 
+def format_speed(keys_per_second):
+    """Format speed in a human-readable format"""
+    if keys_per_second >= 1_000_000:
+        return f"{keys_per_second/1_000_000:.2f}M keys/s"
+    elif keys_per_second >= 1_000:
+        return f"{keys_per_second/1_000:.2f}K keys/s"
+    else:
+        return f"{keys_per_second:.2f} keys/s"
+
 def progress_monitor():
     """Monitor and display progress from all threads"""
     thread_progress = {}
@@ -109,12 +119,20 @@ def progress_monitor():
             total_keys = sum(checked for _, checked in thread_progress.values())
             keys_per_second = total_keys / elapsed_time if elapsed_time > 0 else 0
             
-            print(f"\nProgress Report (Elapsed: {elapsed_time:.1f}s)")
-            print(f"Keys checked: {total_keys:,}")
-            print(f"Speed: {keys_per_second:.2f} keys/s")
-            print(f"Current thread ranges:")
-            for tid, (curr_val, _) in thread_progress.items():
-                print(f"Thread {tid}: 0x{curr_val:x}")
+            # Clear screen (platform independent)
+            os.system('cls' if os.name == 'nt' else 'clear')
+            
+            print(f"Progress Report:")
+            print(f"{'='*50}")
+            print(f"Running time: {elapsed_time:.1f}s")
+            print(f"Total keys checked: {total_keys:,}")
+            print(f"Speed: {format_speed(keys_per_second)}")
+            print(f"\nActive Threads:")
+            print(f"{'-'*50}")
+            for tid, (curr_val, _) in sorted(thread_progress.items()):
+                direction = "+" if tid.startswith("pos") else "-"
+                offset = abs(curr_val - BASE_VALUE)
+                print(f"Thread {tid:6}: {direction}0x{offset:x} from base")
             
         except queue.Empty:
             continue
@@ -127,6 +145,7 @@ def main():
     print(f"Target address: {TARGET_ADDRESS}")
     print(f"Base value: 0x{BASE_VALUE:x}")
     print(f"Range per thread: {RANGE_PER_THREAD:,}")
+    print(f"{'='*50}")
     
     # Start progress monitor
     monitor_thread = threading.Thread(target=progress_monitor)
@@ -158,15 +177,16 @@ def main():
                 if msg_type == 'FOUND':
                     priv_key, addr_comp, addr_uncomp = data
                     print("\nMATCH FOUND!")
-                    print(f"Private Key: 0x{priv_key:x}")
-                    print(f"Private Key (decimal): {priv_key}")
-                    print(f"Compressed Address: {addr_comp}")
-                    print(f"Uncompressed Address: {addr_uncomp}")
+                    print(f"{'='*50}")
+                    print(f"Private Key (hex): 0x{priv_key:x}")
+                    print(f"Private Key (dec): {priv_key}")
+                    print(f"Compressed Addr:   {addr_comp}")
+                    print(f"Uncompressed Addr: {addr_uncomp}")
                     
                     # Save to file
                     with open('puzzle67_solution.txt', 'w') as f:
                         f.write(f"Private Key (hex): 0x{priv_key:x}\n")
-                        f.write(f"Private Key (decimal): {priv_key}\n")
+                        f.write(f"Private Key (dec): {priv_key}\n")
                         f.write(f"Compressed Address: {addr_comp}\n")
                         f.write(f"Uncompressed Address: {addr_uncomp}\n")
                     
@@ -183,9 +203,13 @@ def main():
 
 if __name__ == '__main__':
     # Print system info
+    print(f"\nSystem Information:")
+    print(f"{'='*50}")
     print(f"CPU cores available: {cpu_count()}")
     print(f"Python executable: {os.path.realpath(sys.executable)}")
-    print("=" * 50)
+    print(f"Python version: {sys.version.split()[0]}")
+    print(f"Operating System: {os.name}")
+    print()
     
     main()
 
