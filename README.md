@@ -175,3 +175,24 @@ python3 continuous_search.py
 
 The script will continue searching in expanding ranges until the target address is found, showing progress and pattern matches along the way.
 
+
+## Targeted Search Based on Adjacent Puzzles
+
+Analysis of puzzles 66 and 68 revealed crucial patterns:
+1. Puzzle 68 is approximately 2x puzzle 66
+2. Puzzle 67 should be approximately 1.5x puzzle 66
+3. Specific bit transition patterns between consecutive puzzles
+
+New `targeted_search.py` implements these insights:
+- Uses puzzles 66 and 68 as boundaries
+- Enforces observed bit transition patterns
+- Checks ratio relationships
+- Verifies modulo constraints
+
+### Usage:
+```bash
+python3 targeted_search.py
+```
+
+The search focuses on the mathematically expected range with tight constraints based on observed patterns in surrounding puzzles.
+
